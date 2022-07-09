@@ -1,5 +1,6 @@
 package com.arv.mongo.resources;
 
+import com.arv.mongo.domain.Post;
 import com.arv.mongo.domain.User;
 import com.arv.mongo.dto.UserDTO;
 import com.arv.mongo.service.UserService;
@@ -57,5 +58,11 @@ public class UserResource {
         service.update(obj);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
